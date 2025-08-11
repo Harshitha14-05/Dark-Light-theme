@@ -1,0 +1,161 @@
+/* styles.css */
+/* Basic reset + sensible defaults */
+:root {
+  --bg: #ffffff;
+  --surface: #f6f7fb;
+  --text: #0f172a;
+  --muted: #55607a;
+  --primary: #0066ff;
+  --accent: #7c5cff;
+  --radius: 14px;
+  --glass: rgba(255,255,255,0.6);
+  --shadow: 0 6px 18px rgba(15,23,42,0.08);
+  --transition-fast: 200ms ease;
+  --transition-smooth: 450ms cubic-bezier(.2,.9,.3,1);
+}
+
+/* Dark theme overrides */
+:root[data-theme="dark"] {
+  --bg: #0b1220;
+  --surface: #0f1724;
+  --text: #e6eef8;
+  --muted: #a3b3cf;
+  --primary: #2b9bff;
+  --accent: #9f80ff;
+  --glass: rgba(10,12,18,0.5);
+  --shadow: 0 10px 30px rgba(2,6,23,0.6);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-smooth: 0ms;
+  }
+}
+
+/* Prevent a global transition flash on load:
+   We'll apply transitions only after the page has loaded via a class toggle in JS.
+*/
+html:not(.theme-ready) * {
+  transition: none !important;
+}
+
+/* Page layout */
+html,body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(124,92,255,0.06), transparent 8%),
+              radial-gradient(900px 400px at 90% 90%, rgba(0,102,255,0.04), transparent 10%),
+              var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background var(--transition-smooth), color var(--transition-smooth);
+}
+
+/* header */
+.site-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  box-shadow: var(--shadow);
+}
+.logo {
+  margin: 0;
+  font-size: 1.125rem;
+  letter-spacing: -0.02em;
+}
+
+/* theme toggle button */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+}
+#themeToggle {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 32px;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(15,23,42,0.06);
+  background: linear-gradient(180deg,var(--glass),transparent);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+#themeToggle:focus {
+  outline: 3px solid rgba(0,102,255,0.16);
+  outline-offset: 2px;
+}
+#themeToggle .sun,
+#themeToggle .moon {
+  font-size: 14px;
+  display: inline-block;
+  transform-origin: center center;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+/* show/hide icons depending on theme */
+:root:not([data-theme="dark"]) #themeToggle .sun { transform: translateY(0) scale(1); opacity: 1; }
+:root:not([data-theme="dark"]) #themeToggle .moon { transform: translateY(6px) scale(.7); opacity: 0; }
+
+:root[data-theme="dark"] #themeToggle .sun { transform: translateY(6px) scale(.7); opacity: 0; }
+:root[data-theme="dark"] #themeToggle .moon { transform: translateY(0) scale(1); opacity: 1; }
+
+/* Main content */
+.container {
+  max-width: 980px;
+  margin: 2.2rem auto;
+  padding: 0 1rem;
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr 1fr;
+}
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent),
+              var(--surface);
+  padding: 1.25rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: background var(--transition-smooth), box-shadow var(--transition-smooth), transform var(--transition-fast);
+}
+.card:hover { transform: translateY(-6px); }
+
+.card h2 { margin: 0 0 .5rem; }
+.card p { margin: 0 0 1rem; color: var(--muted); }
+
+/* CTA */
+.cta {
+  display: inline-block;
+  text-decoration: none;
+  padding: .6rem .9rem;
+  border-radius: 10px;
+  background: linear-gradient(90deg,var(--primary),var(--accent));
+  color: white;
+  font-weight: 600;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.cta:active { transform: translateY(1px) }
+
+/* footer */
+.site-footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .container { grid-template-columns: 1fr; }
+  .site-header { padding-inline: .8rem; }
+}

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dark / Light Mode Switcher</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="theme.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="logo">Lovely Theme Switcher</h1>
+    <div class="theme-toggle">
+      <button id="themeToggle"
+              aria-label="Toggle dark mode"
+              aria-pressed="false"
+              title="Toggle theme">
+        <span class="sun" aria-hidden="true">☀️</span>
+        <span class="moon" aria-hidden="true">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Beautiful transitions</h2>
+      <p>
+        This demo uses CSS variables for colors, smooth transitions only where appropriate,
+        respects system preferences, and remembers your choice.
+      </p>
+      <a class="cta" href="#">Primary action</a>
+    </section>
+
+    <section class="card">
+      <h2>Accessibility</h2>
+      <p>
+        The toggle is keyboard-focusable and uses <code>aria-pressed</code> so screen readers
+        know the current state.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Made with CSS variables & a tiny bit of JavaScript ❤️</p>
+  </footer>
+</body>
+</html>
